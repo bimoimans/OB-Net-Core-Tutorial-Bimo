@@ -20,7 +20,7 @@ namespace RumahMakanPadang.api.Masakan
         private readonly IMapper _mapper;
         private readonly ILogger<MasakanController> _logger;
 
-        public MasakanController(ILogger<MasakanController> logger)
+        public MasakanController(ILogger<MasakanController> logger, MasakanService masakanService)
         {
             _logger = logger;
             MapperConfiguration config = new MapperConfiguration(m =>
@@ -30,7 +30,8 @@ namespace RumahMakanPadang.api.Masakan
 
             _mapper = config.CreateMapper();
 
-            _masakanService ??= new MasakanService();
+            //_masakanService ??= new MasakanService();
+            _masakanService = masakanService;
 
         }
 
