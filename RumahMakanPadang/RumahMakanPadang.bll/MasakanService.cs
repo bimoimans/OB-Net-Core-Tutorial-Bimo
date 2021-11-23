@@ -81,11 +81,12 @@ namespace RumahMakanPadang.bll
             }
         }
 
-        public void DeleteMasakan(string nama)
+        public void DeleteMasakanAsync(string nama)
         {
             //Masakan masakan = GetMasakanByNama(nama);
             //_masakans.Remove(masakan);
             _unitOfWork.MasakanRepository.Delete(x => x.Nama.ToLower() == nama.ToLower());
+            _unitOfWork.Save();
         }
     }
 }

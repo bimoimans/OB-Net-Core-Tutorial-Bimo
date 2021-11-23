@@ -113,7 +113,7 @@ namespace RumahMakanPadang.api.Masakan
         [ProducesResponseType(typeof(Model.Masakan), 200)]
         public ActionResult Delete([FromRoute] string nama)
         {
-            _masakanService.DeleteMasakan(nama);
+            _masakanService.DeleteMasakanAsync(nama);
             return new OkResult();
         }
 
