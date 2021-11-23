@@ -11,7 +11,7 @@ namespace RumahMakanPadang.dal.Repositories
     public interface IUnitOfWork : IDisposable
     {
         IBaseRepository<Masakan> MasakanRepository { get; }
-        //IBaseRepository<Author> AuthorRepository { get; }
+        IBaseRepository<Chef> ChefRepository { get; }
         void Save();
         Task SaveAsync(CancellationToken cancellationToken = default(CancellationToken));
         IDbContextTransaction StartNewTransaction();
