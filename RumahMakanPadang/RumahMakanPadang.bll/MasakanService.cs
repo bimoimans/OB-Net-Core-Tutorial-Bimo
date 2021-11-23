@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 using Model = RumahMakanPadang.dal.Models;
 
 namespace RumahMakanPadang.bll
-{using Model = RumahMakanPadang.dal.Models;
+{
     public class MasakanService
     {
-        private readonly List<Masakan> _masakans;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
         //private readonly IMessageSenderFactory _msgSernderFactory;
