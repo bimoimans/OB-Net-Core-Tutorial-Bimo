@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "06f3be5e-9dbe-4c45-9ad9-c6ab46f1c859": {
+      "ProjectGuid": "06f3be5e-9dbe-4c45-9ad9-c6ab46f1c859",
+      "DisplayName": "RumahMakanPadang.api",
+      "ColorIndex": 0
+    },
+    "7e3b5932-6946-46c1-ae44-12ef62d3b91b": {
+      "ProjectGuid": "7e3b5932-6946-46c1-ae44-12ef62d3b91b",
+      "DisplayName": "RumahMakanPadang.bll",
+      "ColorIndex": 1
+    },
+    "c26d629e-9e4d-4173-b8c2-2da2e544748d": {
+      "ProjectGuid": "c26d629e-9e4d-4173-b8c2-2da2e544748d",
+      "DisplayName": "RumahMakanPadang.dal",
+      "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 3
+}
