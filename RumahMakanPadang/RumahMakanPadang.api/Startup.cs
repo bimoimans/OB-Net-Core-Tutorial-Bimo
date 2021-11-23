@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RumahMakanPadang.bll;
 using RumahMakanPadang.dal.Repositories;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace RumahMakanPadang.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            services.AddSingleton<MasakanService>();
             //services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -53,6 +54,8 @@ namespace RumahMakanPadang.api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rumah Makan Padang API");
                 c.RoutePrefix = string.Empty;
             });
+
+            
 
             app.UseRouting();
 
