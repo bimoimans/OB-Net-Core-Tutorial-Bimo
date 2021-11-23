@@ -12,12 +12,12 @@ namespace RumahMakanPadang.dal.Repositories
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         
-        private readonly DbContext dbContext;
+        private readonly RumahMakanPadangDbContext dbContext;
 
         public IBaseRepository<Masakan> MasakanRepository { get; }
         //public IBaseRepository<Author> AuthorRepository { get; }
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(RumahMakanPadangDbContext context)
         {
             dbContext = context;
 
@@ -45,10 +45,10 @@ namespace RumahMakanPadang.dal.Repositories
             return dbContext.Database.BeginTransactionAsync();
         }
 
-        //public Task<int> ExecuteSqlCommandAsync(string sql, object[] parameters, CancellationToken cancellationToken = default(CancellationToken))
-        //{
-        //    return dbContext.Database.ExecuteSqlRawAsync(sql, parameters, cancellationToken);
-        //}
+        public Task<int> ExecuteSqlCommandAsync(string sql, object[] parameters, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return dbContext.Database.ExecuteSqlRawAsync(sql, parameters, cancellationToken);
+        }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls

@@ -16,6 +16,6 @@ namespace RumahMakanPadang.dal.Repositories
         Task SaveAsync(CancellationToken cancellationToken = default(CancellationToken));
         IDbContextTransaction StartNewTransaction();
         Task<IDbContextTransaction> StartNewTransactionAsync();
-        //Task<int> ExecuteSqlCommandAsync(string sql, object[] parameters, CancellationToken cancellationToken = default(CancellationToken));
+        Task<int> ExecuteSqlCommandAsync(string sql, object[] parameters, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
