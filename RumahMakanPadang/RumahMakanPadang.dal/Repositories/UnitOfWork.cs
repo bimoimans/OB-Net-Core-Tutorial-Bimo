@@ -15,14 +15,14 @@ namespace RumahMakanPadang.dal.Repositories
         private readonly RumahMakanPadangDbContext dbContext;
 
         public IBaseRepository<Masakan> MasakanRepository { get; }
-        //public IBaseRepository<Author> AuthorRepository { get; }
+        public IBaseRepository<Chef> ChefRepository { get; }
 
         public UnitOfWork(RumahMakanPadangDbContext context)
         {
             dbContext = context;
 
             MasakanRepository = new BaseRepository<Masakan>(context);
-            //AuthorRepository = new BaseRepository<Author>(context);
+            ChefRepository = new BaseRepository<Chef>(context);
         }
 
         public void Save()
