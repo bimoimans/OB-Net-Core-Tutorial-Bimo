@@ -36,7 +36,7 @@ namespace RumahMakanPadang.bll
 
         public Masakan GetMasakanByNama(string nama)
         {
-            return _masakans.FirstOrDefault(b => b.Nama == nama);
+            return _masakans.FirstOrDefault(b => b.Nama.ToLower() == nama.ToLower());
         }
 
         //public async Task<Masakan> GetMasakanByNamaAsync(string nama)
