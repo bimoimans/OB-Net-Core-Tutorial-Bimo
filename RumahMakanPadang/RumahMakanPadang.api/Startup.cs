@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RumahMakanPadang.bll;
+using RumahMakanPadang.dal;
 using RumahMakanPadang.dal.Repositories;
 using System;
 using System.Collections.Generic;
@@ -28,8 +30,14 @@ namespace RumahMakanPadang.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<MasakanService>();
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddSingleton<MasakanService>();
+
+            services.AddDbContext<RumahMakanPadangDbContext>(options =>
+              options
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
