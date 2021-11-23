@@ -22,7 +22,7 @@ namespace RumahMakanPadang.bll
             _unitOfWork = unitOfWork;
             _config = config;
             //_msgSernderFactory = msgSernderFactory;
-            _masakans = new List<Masakan>();
+            //_masakans = new List<Masakan>();
         }
 
         //public List<Masakan> GetAllMasakan()
@@ -81,12 +81,12 @@ namespace RumahMakanPadang.bll
             }
         }
 
-        public void DeleteMasakanAsync(string nama)
+        public async Task DeleteMasakanAsync(string nama)
         {
             //Masakan masakan = GetMasakanByNama(nama);
             //_masakans.Remove(masakan);
             _unitOfWork.MasakanRepository.Delete(x => x.Nama.ToLower() == nama.ToLower());
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
         }
     }
 }

@@ -36,8 +36,6 @@ namespace RumahMakanPadang.api.Masakan
 
         }
 
-
-
         ///// <summary>
         ///// Get all Masakan
         ///// </summary>
@@ -111,9 +109,9 @@ namespace RumahMakanPadang.api.Masakan
         [HttpDelete]
         [Route("{nama}")]
         [ProducesResponseType(typeof(Model.Masakan), 200)]
-        public ActionResult Delete([FromRoute] string nama)
+        public async Task<ActionResult> DeleteAsync([FromRoute] string nama)
         {
-            _masakanService.DeleteMasakanAsync(nama);
+            await _masakanService.DeleteMasakanAsync(nama);
             return new OkResult();
         }
 
