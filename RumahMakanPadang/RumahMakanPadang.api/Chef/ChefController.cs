@@ -90,10 +90,10 @@ namespace RumahMakanPadang.api.Chef
         /// <response code="200">Request ok.</response>
         /// <response code="405">Request not found.</response>
         [HttpGet]
-        [Route("{nama}")]
+        [Route("queryNama")]
         [ProducesResponseType(typeof(ChefWithMasakanDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<ActionResult> GetByNamaAsync([FromRoute] string nama)
+        public async Task<ActionResult> GetByNamaAsync([FromQuery(Name = "nama")] string nama)
         {
             Model.Chef result = await _chefService.GetChefByNamaAsync(nama);
             if (result != null)
@@ -111,10 +111,10 @@ namespace RumahMakanPadang.api.Chef
         /// <response code="200">Request ok.</response>
         /// <response code="405">Request not found.</response>
         [HttpGet]
-        [Route("{NoKTP}")]
+        [Route("queryKTP")]
         [ProducesResponseType(typeof(ChefWithMasakanDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<ActionResult> GetByKTPAsync([FromRoute] string noKTP)
+        public async Task<ActionResult> GetByKTPAsync([FromQuery(Name = "noKTP")] string noKTP)
         {
             Model.Chef result = await _chefService.GetChefByKTPAsync(noKTP);
             if (result != null)

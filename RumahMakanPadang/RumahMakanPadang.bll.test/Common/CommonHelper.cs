@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace OB_Net_Core_Tutorial_Test.BLL.Test.Common
+namespace RumahMakanPadang.bll.test.Common
 {
     public class CommonHelper
     {
