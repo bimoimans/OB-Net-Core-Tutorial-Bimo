@@ -39,7 +39,7 @@ namespace RumahMakanPadang.api.Masakan
 
             _mapper = config.CreateMapper();
 
-            _masakanService ??= new MasakanService(uow, configuration);
+            _masakanService ??= new MasakanService(uow);//, configuration);
             
         }
 

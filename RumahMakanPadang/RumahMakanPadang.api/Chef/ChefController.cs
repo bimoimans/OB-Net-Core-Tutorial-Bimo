@@ -38,7 +38,7 @@ namespace RumahMakanPadang.api.Chef
 
             _mapper = config.CreateMapper();
 
-            _chefService ??= new ChefService(uow, configuration);
+            _chefService ??= new ChefService(uow);//, configuration);
 
         }
 
@@ -99,7 +99,7 @@ namespace RumahMakanPadang.api.Chef
             if (result != null)
             {
                 ChefWithMasakanDTO mappedResult = _mapper.Map<ChefWithMasakanDTO>(result);
-                return new OkObjectResult(result);
+                return new OkObjectResult(mappedResult);
             }
             return new NotFoundResult();
         }

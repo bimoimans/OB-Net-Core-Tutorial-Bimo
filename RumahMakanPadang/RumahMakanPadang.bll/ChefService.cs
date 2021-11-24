@@ -13,13 +13,13 @@ namespace RumahMakanPadang.bll
     public class ChefService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IConfiguration _config;
+        //private readonly IConfiguration _config;
         //private readonly IMessageSenderFactory _msgSernderFactory;
 
-        public ChefService(IUnitOfWork unitOfWork, IConfiguration config)
+        public ChefService(IUnitOfWork unitOfWork)//, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
-            _config = config;
+            //_config = config;
             //_msgSernderFactory = msgSernderFactory;
         }
 

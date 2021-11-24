@@ -13,13 +13,13 @@ namespace RumahMakanPadang.bll
     public class MasakanService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IConfiguration _config;
+        //private readonly IConfiguration _config;
         //private readonly IMessageSenderFactory _msgSernderFactory;
 
-        public MasakanService(IUnitOfWork unitOfWork, IConfiguration config)
+        public MasakanService(IUnitOfWork unitOfWork)//, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
-            _config = config;
+            //_config = config;
             //_msgSernderFactory = msgSernderFactory;
         }
 
