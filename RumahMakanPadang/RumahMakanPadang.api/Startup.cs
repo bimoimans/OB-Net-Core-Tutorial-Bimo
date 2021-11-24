@@ -7,12 +7,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using RumahMakanPadang.bll;
 using RumahMakanPadang.dal;
 using RumahMakanPadang.dal.Repositories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace RumahMakanPadang.api
@@ -40,7 +43,26 @@ namespace RumahMakanPadang.api
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Rumah Makan Padang API",
+                    Description = "Pesan menu warung makan padang dengan API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Bimo",
+                        Email = string.Empty,
+                        Url = new Uri("https://github.com/bimoimans"),
+                    }
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
