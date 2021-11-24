@@ -20,7 +20,7 @@ namespace RumahMakanPadang.dal.Models
         [StringLength(100)]
         public string Nama { get; set; }
 
-        [StringLength(100)]
+        [StringLength(16)]
         public string KTP { get; set; }
 
         public int Umur { get; set; }

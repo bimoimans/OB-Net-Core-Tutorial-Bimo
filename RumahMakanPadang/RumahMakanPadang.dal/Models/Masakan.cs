@@ -22,6 +22,10 @@ namespace RumahMakanPadang.dal.Models
         [StringLength(255)]
         public string Deskripsi { get; set; }
 
+
+        public string ChefKTP { get; set; }
+        public Chef Chef { get; set; }
+
         public Masakan()
         {
             DateAdded = DateTime.UtcNow;
