@@ -10,6 +10,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using RumahMakanPadang.dal.Repositories;
 using Microsoft.Extensions.Configuration;
+using RumahMakanPadang.api.Masakan.DTO;
 
 namespace RumahMakanPadang.api.Masakan
 {
@@ -26,108 +27,45 @@ namespace RumahMakanPadang.api.Masakan
             _logger = logger;
             MapperConfiguration config = new MapperConfiguration(m =>
             {
-                m.CreateMap<Model.Masakan, Model.Masakan>();
+                m.CreateMap<MasakanDTO, Model.Masakan>();
+                m.CreateMap<Model.Masakan, MasakanDTO>();
+                m.CreateMap<MasakanWithChefDTO, Model.Masakan>()
+                    .ForMember(s => s.ChefKTP, d => d.MapFrom(t => t.Chef.KTP)) //???
+                    .ForMember(s => s.Chef, a => a.Ignore());
+                m.CreateMap<Model.Masakan, MasakanWithChefDTO>();
             });
 
             _mapper = config.CreateMapper();
 
             _masakanService ??= new MasakanService(uow, configuration);
-            //_masakanService = masakanService;
-
+            
         }
-
-        ///// <summary>
-        ///// Get all Masakan
-        ///// </summary>
-        ///// <response code="200">Request ok.</response>
-        //[HttpGet]
-        //[Route("")]
-        //[ProducesResponseType(typeof(List<Model.Masakan>), 200)]
-        //[ProducesResponseType(typeof(string), 400)]
-        //public ActionResult GetAll()
-        //{
-        //    List<Model.Masakan> result = _masakanService.GetAllMasakan();
-        //    //List<MasakanWithAuthorDTO> mappedResult = _mapper.Map<List<MasakanWithAuthorDTO>>(result);
-        //    return new OkObjectResult(result);
-        //}
-
-        ///// <summary>
-        ///// Get masakan by nama
-        ///// </summary>
-        ///// <param name="nama">user Model.</param>
-        ///// <response code="200">Request ok.</response>
-        ///// <response code="405">Request not found.</response>
-        //[HttpGet]
-        //[Route("{nama}")]
-        //[ProducesResponseType(typeof(Model.Masakan), 200)]
-        //[ProducesResponseType(typeof(string), 400)]
-        //public ActionResult GetByNama([FromRoute] string nama)
-        //{
-        //    Model.Masakan result = _masakanService.GetMasakanByNama(nama);
-        //    if (result != null)
-        //    {
-        //        Model.Masakan mappedResult = _mapper.Map<Model.Masakan>(result);
-        //        return new OkObjectResult(result);
-        //    }
-        //    return new NotFoundResult();
-        //}
-
-
-        ///// <summary>
-        ///// Create masakan entry 
-        ///// </summary>
-        ///// <param name="masakan">masakan data.</param>
-        ///// <response code="200">Request ok.</response>
-        ///// <response code="400">Request failed because of an exception.</response>
-        //[HttpPost]
-        //[Route("")]
-        //[ProducesResponseType(typeof(string), 200)]
-        //[ProducesResponseType(typeof(string), 400)]
-        //public ActionResult Create([FromBody] Model.Masakan masakan)
-        //{
-        //    try
-        //    {
-        //        Model.Masakan new_masakan = _mapper.Map<Model.Masakan>(masakan);
-        //        _masakanService.CreateMasakan(masakan);
-        //        //Console.WriteLine("Obj created");
-        //        _masakanService.GetAllMasakan();
-        //        return new OkResult();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _logger.LogError(e.ToString());
-        //        return new BadRequestResult();
-        //    }
-
-        //}
 
         /// <summary>
-        /// Delete Book
+        /// Create masakan entry 
         /// </summary>
-        /// <param name="nama">Nama masakan</param>
+        /// <param name="masakanDTO">masakan data.</param>
         /// <response code="200">Request ok.</response>
-        [HttpDelete]
-        [Route("{nama}")]
-        [ProducesResponseType(typeof(Model.Masakan), 200)]
-        public async Task<ActionResult> DeleteAsync([FromRoute] string nama)
+        /// <response code="400">Request failed because of an exception.</response>
+        [HttpPost]
+        [Route("")]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult> CreateAsync([FromBody] MasakanWithChefDTO masakanDTO)
         {
-            await _masakanService.DeleteMasakanAsync(nama);
-            return new OkResult();
-        }
+            try
+            {
+                Model.Masakan masakan_model = _mapper.Map<Model.Masakan>(masakanDTO);
+                await _masakanService.CreateMasakanAsync(masakan_model);
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.ToString());
+                return new BadRequestResult();
+            }
 
-        ///// <summary>
-        ///// Delete Book
-        ///// </summary>
-        ///// <param name="nama">Nama masakan</param>
-        ///// <response code="200">Request ok.</response>
-        //[HttpDelete]
-        //[Route("{nama}")]
-        //[ProducesResponseType(typeof(Model.Masakan), 200)]
-        //public ActionResult Delete([FromRoute] string nama)
-        //{
-        //    _masakanService.DeleteMasakan(nama);
-        //    return new OkResult();
-        //}
+        }
 
         /// <summary>
         /// Get all Masakan
@@ -135,13 +73,13 @@ namespace RumahMakanPadang.api.Masakan
         /// <response code="200">Request ok.</response>
         [HttpGet]
         [Route("")]
-        [ProducesResponseType(typeof(List<Model.Masakan>), 200)]
+        [ProducesResponseType(typeof(List<MasakanWithChefDTO>), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult> GetAllAsync()
         {
             List<Model.Masakan> result = await _masakanService.GetAllMasakanAsync();
-            //List<MasakanWithAuthorDTO> mappedResult = _mapper.Map<List<MasakanWithAuthorDTO>>(result);
-            return new OkObjectResult(result);
+            List<MasakanWithChefDTO> mappedResult = _mapper.Map<List<MasakanWithChefDTO>>(result);
+            return new OkObjectResult(mappedResult);
         }
 
         /// <summary>
@@ -152,43 +90,31 @@ namespace RumahMakanPadang.api.Masakan
         /// <response code="405">Request not found.</response>
         [HttpGet]
         [Route("{nama}")]
-        [ProducesResponseType(typeof(Model.Masakan), 200)]
+        [ProducesResponseType(typeof(MasakanWithChefDTO), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult> GetByNamaAsync([FromRoute] string nama)
         {
             Model.Masakan result = await _masakanService.GetMasakanByNamaAsync(nama);
             if (result != null)
             {
-                //BookWithAuthorDTO mappedResult = _mapper.Map<BookWithAuthorDTO>(result);
-                return new OkObjectResult(result);
+                MasakanWithChefDTO mappedResult = _mapper.Map<MasakanWithChefDTO>(result);
+                return new OkObjectResult(mappedResult);
             }
             return new NotFoundResult();
         }
 
         /// <summary>
-        /// Create masakan entry 
+        /// Delete Masakan
         /// </summary>
-        /// <param name="masakanDto">masakan data.</param>
+        /// <param name="nama">Nama masakan</param>
         /// <response code="200">Request ok.</response>
-        /// <response code="400">Request failed because of an exception.</response>
-        [HttpPost]
-        [Route("")]
-        [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        public async Task<ActionResult> CreateAsync([FromBody] Model.Masakan masakan)
+        [HttpDelete]
+        [Route("{nama}")]
+        [ProducesResponseType(typeof(MasakanWithChefDTO), 200)]
+        public async Task<ActionResult> DeleteAsync([FromRoute] string nama)
         {
-            try
-            {
-                Model.Masakan book = _mapper.Map<Model.Masakan>(masakan);
-                await _masakanService.CreateMasakanAsync(book);
-                return new OkResult();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e.ToString());
-                return new BadRequestResult();
-            }
-
+            await _masakanService.DeleteMasakanAsync(nama);
+            return new OkResult();
         }
 
     }

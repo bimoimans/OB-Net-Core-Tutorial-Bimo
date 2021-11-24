@@ -35,21 +35,6 @@ namespace RumahMakanPadang.api.Chef
 
         }
 
-        ///// <summary>
-        ///// Get all Masakan
-        ///// </summary>
-        ///// <response code="200">Request ok.</response>
-        //[HttpGet]
-        //[Route("")]
-        //[ProducesResponseType(typeof(List<Model.Masakan>), 200)]
-        //[ProducesResponseType(typeof(string), 400)]
-        //public ActionResult GetAll()
-        //{
-        //    List<Model.Masakan> result = _masakanService.GetAllMasakan();
-        //    //List<MasakanWithAuthorDTO> mappedResult = _mapper.Map<List<MasakanWithAuthorDTO>>(result);
-        //    return new OkObjectResult(result);
-        //}
-
         /// <summary>
         /// Delete Book
         /// </summary>
@@ -57,7 +42,7 @@ namespace RumahMakanPadang.api.Chef
         /// <response code="200">Request ok.</response>
         [HttpDelete]
         [Route("{nama}")]
-        [ProducesResponseType(typeof(Model.Masakan), 200)]
+        [ProducesResponseType(typeof(Model.Chef), 200)]
         public async Task<ActionResult> DeleteAsync([FromRoute] string nama)
         {
             await _chefService.DeleteChefAsync(nama);
@@ -70,7 +55,7 @@ namespace RumahMakanPadang.api.Chef
         /// <response code="200">Request ok.</response>
         [HttpGet]
         [Route("")]
-        [ProducesResponseType(typeof(List<Model.Masakan>), 200)]
+        [ProducesResponseType(typeof(List<Model.Chef>), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public async Task<ActionResult> GetAllAsync()
         {
