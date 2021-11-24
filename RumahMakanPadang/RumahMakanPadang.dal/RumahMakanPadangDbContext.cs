@@ -11,7 +11,14 @@ namespace RumahMakanPadang.dal
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Masakan>().HasIndex(t => t.Nama).IsUnique();
+            builder.Entity<Masakan>()
+            .HasOne(p => p.Chef)
+            .WithMany(b => b.Masakans)
+            .HasForeignKey(p => p.ChefKTP)
+            .HasPrincipalKey(b => b.KTP);
+
             builder.Entity<Chef>().HasIndex(c => c.KTP).IsUnique();
+            
         }
 
         public DbSet<Masakan> Masakans { get; set; }

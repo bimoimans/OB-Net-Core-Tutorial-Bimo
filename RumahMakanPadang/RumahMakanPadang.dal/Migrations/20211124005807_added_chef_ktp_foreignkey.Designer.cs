@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RumahMakanPadang.dal;
 
 namespace RumahMakanPadang.dal.Migrations
 {
     [DbContext(typeof(RumahMakanPadangDbContext))]
-    partial class RumahMakanPadangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211124005807_added_chef_ktp_foreignkey")]
+    partial class added_chef_ktp_foreignkey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
