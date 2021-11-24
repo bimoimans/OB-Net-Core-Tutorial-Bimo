@@ -1,0 +1,14 @@
+[
+  {
+    "Nama": "Masakan Test 1",
+    "Harga": 10,
+    "Deskripsi": "Deskripsi Test 1",
+    "ChefKTP": "10"
+  },
+  {
+    "Nama": "Masakan Test 2",
+    "Harga": 11,
+    "Deskripsi": "Deskripsi Test 2",
+    "ChefKTP": "11"
+  }
+]

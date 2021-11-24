@@ -1,0 +1,39 @@
+[
+  {
+    "Id": "311b848d-00ae-443e-5e85-08d946c2256c",
+    "Nama": "Chef Test 1",
+    "KTP": "10",
+    "Umur": 2,
+    "Spesialisasi": "spesial 1",
+    "Masakan": [
+      {
+        "Nama": "Masakan Test 1",
+        "Harga": 10,
+        "Deskripsi": "Deskripsi Test 1",
+        "ChefKTP": "10"
+      }
+    ]
+  },
+  {
+    "Id": "311b848d-00ea-443e-5e85-08d946c2256c",
+    "Nama": "Chef Test 2",
+    "KTP": "11",
+    "Umur": 3,
+    "Spesialisasi": "spesial 2",
+    "Masakan": [
+      {
+        "Nama": "Masakan Test 2",
+        "Harga": 11,
+        "Deskripsi": "Deskripsi Test 2",
+        "ChefKTP": "11"
+      }
+    ]
+  },
+  {
+    "Id": "311b848d-0001-443e-5e85-08d946c2256c",
+    "Nama": "Chef Test 3",
+    "KTP": "12",
+    "Umur": 4,
+    "Spesialisasi": "spesial 3"
+  }
+]

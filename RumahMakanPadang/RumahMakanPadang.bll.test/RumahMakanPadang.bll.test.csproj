@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RumahMakanPadang.bll\RumahMakanPadang.bll.csproj" />
+    <ProjectReference Include="..\RumahMakanPadang.dal\RumahMakanPadang.dal.csproj" />
+  </ItemGroup>
+
 </Project>

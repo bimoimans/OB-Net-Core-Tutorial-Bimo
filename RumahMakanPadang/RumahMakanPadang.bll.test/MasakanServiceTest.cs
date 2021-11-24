@@ -3,7 +3,7 @@ using Xunit;
 
 namespace RumahMakanPadang.bll.test
 {
-    public class ChefServiceTest
+    public class MasakanServiceTest
     {
         [Fact]
         public void Test1()
