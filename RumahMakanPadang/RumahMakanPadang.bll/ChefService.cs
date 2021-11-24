@@ -21,19 +21,18 @@ namespace RumahMakanPadang.bll
             _unitOfWork = unitOfWork;
             _config = config;
             //_msgSernderFactory = msgSernderFactory;
-            //_masakans = new List<Masakan>();
         }
 
         public async Task<List<Chef>> GetAllChefAsync()
         {
-            return await _unitOfWork.ChefRepository.GetAll().ToListAsync();
+            return await _unitOfWork.ChefRepository.GetAll().Include(c => c.Masakans).ToListAsync();
         }
 
         public async Task<Chef> GetChefByNamaAsync(string nama)
         {
             return await _unitOfWork.ChefRepository
                 .GetAll()
-                //.Include(b => b.Author)
+                .Include(c => c.Masakans)
                 .FirstOrDefaultAsync(b => b.Nama.ToLower() == nama.ToLower());
         }
 
@@ -41,7 +40,7 @@ namespace RumahMakanPadang.bll
         {
             return await _unitOfWork.ChefRepository
                 .GetAll()
-                //.Include(b => b.Author)
+                .Include(c => c.Masakans)
                 .FirstOrDefaultAsync(b => b.KTP == ktp);
         }
 
@@ -58,7 +57,7 @@ namespace RumahMakanPadang.bll
             }
             else
             {
-                throw new Exception($"Chef with {chef.Nama} already exist");
+                throw new Exception($"Chef with {chef.KTP} already exist");
             }
         }
 

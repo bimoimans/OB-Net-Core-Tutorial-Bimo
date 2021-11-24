@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RumahMakanPadang.api", "RumahMakanPadang.api\RumahMakanPadang.api.csproj", "{06F3BE5E-9DBE-4C45-9AD9-C6AB46F1C859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RumahMakanPadang.api", "RumahMakanPadang.api\RumahMakanPadang.api.csproj", "{06F3BE5E-9DBE-4C45-9AD9-C6AB46F1C859}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RumahMakanPadang.bll", "RumahMakanPadang.bll\RumahMakanPadang.bll.csproj", "{7E3B5932-6946-46C1-AE44-12EF62D3B91B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RumahMakanPadang.bll", "RumahMakanPadang.bll\RumahMakanPadang.bll.csproj", "{7E3B5932-6946-46C1-AE44-12EF62D3B91B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RumahMakanPadang.dal", "RumahMakanPadang.dal\RumahMakanPadang.dal.csproj", "{C26D629E-9E4D-4173-B8C2-2DA2E544748D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RumahMakanPadang.dal", "RumahMakanPadang.dal\RumahMakanPadang.dal.csproj", "{C26D629E-9E4D-4173-B8C2-2DA2E544748D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RumahMakanPadang.bll.test", "RumahMakanPadang.bll.test\RumahMakanPadang.bll.test.csproj", "{9C8BB370-A704-41A2-91B5-28486D93843C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C26D629E-9E4D-4173-B8C2-2DA2E544748D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C26D629E-9E4D-4173-B8C2-2DA2E544748D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C26D629E-9E4D-4173-B8C2-2DA2E544748D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C8BB370-A704-41A2-91B5-28486D93843C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C8BB370-A704-41A2-91B5-28486D93843C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C8BB370-A704-41A2-91B5-28486D93843C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C8BB370-A704-41A2-91B5-28486D93843C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,7 +25,7 @@ namespace RumahMakanPadang.bll
 
         public async Task<List<Masakan>> GetAllMasakanAsync()
         {
-            return await _unitOfWork.MasakanRepository.GetAll().ToListAsync();
+            return await _unitOfWork.MasakanRepository.GetAll().Include(m => m.Chef).ToListAsync();
         }
 
         public async Task<Masakan> GetMasakanByNamaAsync(string nama)
@@ -47,9 +47,13 @@ namespace RumahMakanPadang.bll
 
                 //await SendMasakanToEventHub(masakan);
             }
-            else
+            else if (isExist)
             {
                 throw new Exception($"Masakan with {masakan.Nama} already exist");
+            }
+            else if (!isChefExist)
+            {
+                throw new Exception($"Chef with {masakan.ChefKTP} not exist");
             }
         }
 

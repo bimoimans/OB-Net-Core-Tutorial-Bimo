@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using RumahMakanPadang.dal.Repositories;
 using Microsoft.Extensions.Configuration;
 using RumahMakanPadang.api.Masakan.DTO;
+using RumahMakanPadang.api.Chef.DTO;
 
 namespace RumahMakanPadang.api.Masakan
 {
@@ -32,6 +33,7 @@ namespace RumahMakanPadang.api.Masakan
                 m.CreateMap<MasakanWithChefDTO, Model.Masakan>()
                     .ForMember(s => s.ChefKTP, d => d.MapFrom(t => t.Chef.KTP)) //???
                     .ForMember(s => s.Chef, a => a.Ignore());
+                m.CreateMap<Model.Chef, ChefDTO>();
                 m.CreateMap<Model.Masakan, MasakanWithChefDTO>();
             });
 

@@ -1,4 +1,5 @@
 ﻿using RumahMakanPadang.api.Masakan.DTO;
+using System.Collections.Generic;
 
 namespace RumahMakanPadang.api.Chef.DTO
 {
@@ -14,7 +15,7 @@ namespace RumahMakanPadang.api.Chef.DTO
 
     public class ChefWithMasakanDTO : ChefDTO
     {
-        public MasakanDTO Masakan{ get; set; }
+        public List<MasakanDTO> Masakans { get; set; }
     }
     
 }

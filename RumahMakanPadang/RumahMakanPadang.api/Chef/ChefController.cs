@@ -10,6 +10,8 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using RumahMakanPadang.dal.Repositories;
 using Microsoft.Extensions.Configuration;
+using RumahMakanPadang.api.Chef.DTO;
+using RumahMakanPadang.api.Masakan.DTO;
 
 namespace RumahMakanPadang.api.Chef
 {
@@ -26,7 +28,12 @@ namespace RumahMakanPadang.api.Chef
             _logger = logger;
             MapperConfiguration config = new MapperConfiguration(m =>
             {
-                m.CreateMap<Model.Masakan, Model.Masakan>();
+                m.CreateMap<Model.Chef, ChefDTO>();
+                m.CreateMap<ChefDTO, Model.Chef>();
+                m.CreateMap<Model.Masakan, MasakanDTO>();
+
+                m.CreateMap<ChefWithMasakanDTO, Model.Chef>();
+                m.CreateMap<Model.Chef, ChefWithMasakanDTO>();
             });
 
             _mapper = config.CreateMapper();
@@ -36,70 +43,20 @@ namespace RumahMakanPadang.api.Chef
         }
 
         /// <summary>
-        /// Delete Book
+        /// Create Chef entry 
         /// </summary>
-        /// <param name="nama">Nama masakan</param>
-        /// <response code="200">Request ok.</response>
-        [HttpDelete]
-        [Route("{nama}")]
-        [ProducesResponseType(typeof(Model.Chef), 200)]
-        public async Task<ActionResult> DeleteAsync([FromRoute] string nama)
-        {
-            await _chefService.DeleteChefAsync(nama);
-            return new OkResult();
-        }
-
-        /// <summary>
-        /// Get all Masakan
-        /// </summary>
-        /// <response code="200">Request ok.</response>
-        [HttpGet]
-        [Route("")]
-        [ProducesResponseType(typeof(List<Model.Chef>), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        public async Task<ActionResult> GetAllAsync()
-        {
-            List<Model.Chef> result = await _chefService.GetAllChefAsync();
-            //List<MasakanWithAuthorDTO> mappedResult = _mapper.Map<List<MasakanWithAuthorDTO>>(result);
-            return new OkObjectResult(result);
-        }
-
-        /// <summary>
-        /// Get masakan by nama
-        /// </summary>
-        /// <param name="nama">user Model.</param>
-        /// <response code="200">Request ok.</response>
-        /// <response code="405">Request not found.</response>
-        [HttpGet]
-        [Route("{nama}")]
-        [ProducesResponseType(typeof(Model.Masakan), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        public async Task<ActionResult> GetByNamaAsync([FromRoute] string nama)
-        {
-            Model.Chef result = await _chefService.GetChefByNamaAsync(nama);
-            if (result != null)
-            {
-                //BookWithAuthorDTO mappedResult = _mapper.Map<BookWithAuthorDTO>(result);
-                return new OkObjectResult(result);
-            }
-            return new NotFoundResult();
-        }
-
-        /// <summary>
-        /// Create masakan entry 
-        /// </summary>
-        /// <param name="masakanDto">masakan data.</param>
+        /// <param name="chefDto">Chef data.</param>
         /// <response code="200">Request ok.</response>
         /// <response code="400">Request failed because of an exception.</response>
         [HttpPost]
         [Route("")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<ActionResult> CreateAsync([FromBody] Model.Chef chef)
+        public async Task<ActionResult> CreateAsync([FromBody] ChefDTO chefDto)
         {
             try
             {
-                Model.Chef chef_model = _mapper.Map<Model.Chef>(chef);
+                Model.Chef chef_model = _mapper.Map<Model.Chef>(chefDto);
                 await _chefService.CreateChefAsync(chef_model);
                 return new OkResult();
             }
@@ -109,6 +66,77 @@ namespace RumahMakanPadang.api.Chef
                 return new BadRequestResult();
             }
 
+        }
+
+        /// <summary>
+        /// Get all Chef
+        /// </summary>
+        /// <response code="200">Request ok.</response>
+        [HttpGet]
+        [Route("")]
+        [ProducesResponseType(typeof(List<Model.Chef>), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult> GetAllAsync()
+        {
+            List<Model.Chef> result = await _chefService.GetAllChefAsync();
+            List<ChefWithMasakanDTO> mappedResult = _mapper.Map<List<ChefWithMasakanDTO>>(result);
+            return new OkObjectResult(mappedResult);
+        }
+
+        /// <summary>
+        /// Get Chef by nama
+        /// </summary>
+        /// <param name="nama">user Model.</param>
+        /// <response code="200">Request ok.</response>
+        /// <response code="405">Request not found.</response>
+        [HttpGet]
+        [Route("{nama}")]
+        [ProducesResponseType(typeof(ChefWithMasakanDTO), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult> GetByNamaAsync([FromRoute] string nama)
+        {
+            Model.Chef result = await _chefService.GetChefByNamaAsync(nama);
+            if (result != null)
+            {
+                ChefWithMasakanDTO mappedResult = _mapper.Map<ChefWithMasakanDTO>(result);
+                return new OkObjectResult(result);
+            }
+            return new NotFoundResult();
+        }
+
+        /// <summary>
+        /// Get Chef by Ktp
+        /// </summary>
+        /// <param name="noKTP">No. KTP of the Chef</param>
+        /// <response code="200">Request ok.</response>
+        /// <response code="405">Request not found.</response>
+        [HttpGet]
+        [Route("{NoKTP}")]
+        [ProducesResponseType(typeof(ChefWithMasakanDTO), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult> GetByKTPAsync([FromRoute] string noKTP)
+        {
+            Model.Chef result = await _chefService.GetChefByKTPAsync(noKTP);
+            if (result != null)
+            {
+                ChefWithMasakanDTO mappedResult = _mapper.Map<ChefWithMasakanDTO>(result);
+                return new OkObjectResult(mappedResult);
+            }
+            return new NotFoundResult();
+        }
+
+        /// <summary>
+        /// Delete Chef
+        /// </summary>
+        /// <param name="nama">Nama Chef</param>
+        /// <response code="200">Request ok.</response>
+        [HttpDelete]
+        [Route("{nama}")]
+        [ProducesResponseType(typeof(Model.Chef), 200)]
+        public async Task<ActionResult> DeleteAsync([FromRoute] string nama)
+        {
+            await _chefService.DeleteChefAsync(nama);
+            return new OkResult();
         }
 
     }
