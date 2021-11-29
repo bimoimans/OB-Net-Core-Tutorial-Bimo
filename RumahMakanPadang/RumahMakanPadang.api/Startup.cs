@@ -125,9 +125,7 @@ namespace RumahMakanPadang.api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rumah Makan Padang API");
                 c.RoutePrefix = string.Empty;
             });
-
-            
-
+           
             app.UseRouting();
 
             app.UseAuthorization();
