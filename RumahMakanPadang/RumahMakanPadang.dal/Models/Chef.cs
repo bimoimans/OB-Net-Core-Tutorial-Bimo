@@ -17,9 +17,11 @@ namespace RumahMakanPadang.dal.Models
 
         public DateTime DateModified { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string Nama { get; set; }
 
+        [Required]
         [StringLength(16)]
         public string KTP { get; set; }
 

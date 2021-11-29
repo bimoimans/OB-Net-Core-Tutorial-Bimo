@@ -27,4 +27,10 @@
     <ProjectReference Include="..\RumahMakanPadang.dal\RumahMakanPadang.dal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="MockData\Chef.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

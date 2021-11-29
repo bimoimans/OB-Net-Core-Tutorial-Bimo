@@ -126,6 +126,33 @@ namespace RumahMakanPadang.api.Chef
         }
 
         /// <summary>
+        /// Update chef
+        /// </summary>
+        /// <param name="chefDto">chef data.</param>
+        /// <param name="Id">Chef KTP.</param>
+        /// <response code="200">Request ok.</response>
+        /// <response code="400">Request failed because of an exception.</response>
+        [HttpPut]
+        [Route("{Id}")]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public async Task<ActionResult> UpdateAscync([FromRoute] Guid Id, [FromBody] ChefDTO chefDto)
+        {
+            try
+            {
+                chefDto.Id = Id;
+                Model.Chef chef = _mapper.Map<Model.Chef>(chefDto);
+                await _chefService.UpdateChefAsync(chef);
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.ToString());
+                return new BadRequestResult();
+            }
+        }
+
+        /// <summary>
         /// Delete Chef
         /// </summary>
         /// <param name="nama">Nama Chef</param>

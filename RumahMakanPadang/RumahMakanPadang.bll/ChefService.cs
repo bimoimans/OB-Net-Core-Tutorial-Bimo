@@ -57,8 +57,23 @@ namespace RumahMakanPadang.bll
             }
             else
             {
-                throw new Exception($"Chef with {chef.KTP} already exist");
+                throw new Exception($"Chef with KTP {chef.KTP} already exist");
             }
+        }
+
+        public async Task UpdateChefAsync(Chef chef)
+        {
+            Chef chefFromDb = await _unitOfWork.ChefRepository.GetAll().AsNoTracking().FirstOrDefaultAsync(x => x.Id == chef.Id);
+            if (chefFromDb == null)
+            {
+                throw new Exception($"Chef with Id {chef.Id} not exist");
+            }
+            //chefFromDb.Nama = chef.Nama;
+            //chefFromDb.Spesialisasi = chef.Spesialisasi;
+            //chefFromDb.Umur = chef.Umur;
+            //chefFromDb.DateModified = chef.DateAdded;
+            _unitOfWork.ChefRepository.Edit(chef);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task DeleteChefAsync(string nama)

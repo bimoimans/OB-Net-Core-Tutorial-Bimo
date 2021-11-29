@@ -22,7 +22,7 @@ namespace RumahMakanPadang.bll.test
 
         public ChefServiceTest()
         {
-            chefs = CommonHelper.LoadDataFromFile<IEnumerable<Chef>>("../../../MockData/Chef.json");
+            chefs = CommonHelper.LoadDataFromFile<IEnumerable<Chef>>(@"MockData/Chef.json");
             uow = MockUnitOfWork();
             //redis = MockRedis();
         }
@@ -114,12 +114,40 @@ namespace RumahMakanPadang.bll.test
         public async Task GetByKTP_Failed(string ktp)
         {
             //arrange
-            //var expected = chefs.First(x => x.KTP == ktp);
-
             var svc = CreateChefService();
 
             //act
             var actual = await svc.GetChefByKTPAsync(ktp);
+
+            //assert
+            actual.Should().BeNull();
+        }
+
+        [Theory]
+        [InlineData("TestMahmud")]
+        [InlineData("TestSamsul")]
+        public async Task GetByNama_Failed(string nama)
+        {
+            //arrange
+            var svc = CreateChefService();
+
+            //act
+            var actual = await svc.GetChefByNamaAsync(nama);
+
+            //assert
+            actual.Should().BeNull();
+        }
+
+        [Theory]
+        [InlineData("Chef Test 01")]
+        [InlineData("Chef Test 02")]
+        public async Task GetByNama_Success(string nama)
+        {
+            //arrange
+            var svc = CreateChefService();
+
+            //act
+            var actual = await svc.GetChefByNamaAsync(nama);
 
             //assert
             actual.Should().BeNull();
@@ -146,5 +174,28 @@ namespace RumahMakanPadang.bll.test
             //assert
             uow.Verify(x => x.SaveAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
+
+        [Fact]
+        public async Task CreateChefDuplicate_Failed()
+        {
+            //arrange
+            var expected = new Chef
+            {
+                Nama = "Test",
+                KTP = "12"
+            };
+
+            var svc = CreateChefService();
+
+            //act
+            Func<Task> act = async () => { await svc.CreateChefAsync(expected); };
+
+            //assert
+            await act.Should().ThrowAsync<Exception>().WithMessage($"Chef with KTP {expected.KTP} already exist");
+            
+            uow.Verify(x => x.SaveAsync(It.IsAny<CancellationToken>()), Times.Never);
+        }
+
+
     }
 }
