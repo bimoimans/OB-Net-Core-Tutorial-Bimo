@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
 using RumahMakanPadang.bll;
 using RumahMakanPadang.dal;
@@ -112,6 +113,7 @@ namespace RumahMakanPadang.api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                IdentityModelEventSource.ShowPII = true;
             }
 
             app.UseHttpsRedirection();
@@ -127,6 +129,8 @@ namespace RumahMakanPadang.api
             });
            
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

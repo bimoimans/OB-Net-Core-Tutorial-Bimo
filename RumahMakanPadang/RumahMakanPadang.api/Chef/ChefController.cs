@@ -12,6 +12,7 @@ using RumahMakanPadang.dal.Repositories;
 using Microsoft.Extensions.Configuration;
 using RumahMakanPadang.api.Chef.DTO;
 using RumahMakanPadang.api.Masakan.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RumahMakanPadang.api.Chef
 {
@@ -52,6 +53,7 @@ namespace RumahMakanPadang.api.Chef
         [Route("")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
+        [Authorize]
         public async Task<ActionResult> CreateAsync([FromBody] ChefDTO chefDto)
         {
             try
